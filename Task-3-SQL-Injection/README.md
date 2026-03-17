@@ -1,9 +1,10 @@
-# 🔐 SQL Injection Attack using DVWA
+# 🔐 SQL Injection Case Study using DVWA
 
-![Security](https://img.shields.io/badge/Cybersecurity-SQL%20Injection-red)
+![Cybersecurity](https://img.shields.io/badge/Domain-Cybersecurity-red)
+![Vulnerability](https://img.shields.io/badge/Vulnerability-SQL%20Injection-critical)
 ![Platform](https://img.shields.io/badge/Platform-DVWA-green)
+![Tools](https://img.shields.io/badge/Tools-XAMPP%20%7C%20VSCode-blue)
 ![Status](https://img.shields.io/badge/Status-Completed-success)
-![Tools](https://img.shields.io/badge/Tools-XAMPP%20%7C%20DVWA%20%7C%20VSCode-blue)
 
 ---
 
@@ -13,176 +14,211 @@
 
 ---
 
-## 📌 Project Overview
+## 📖 Executive Summary
 
-This project demonstrates a **SQL Injection vulnerability** using DVWA (Damn Vulnerable Web Application).
+This project presents a **practical exploitation of SQL Injection vulnerability** in a controlled environment using DVWA.
 
-It highlights how attackers can exploit weak input validation to:
+The assessment demonstrates how improper input validation allows an attacker to:
 
-* Bypass authentication
-* Access sensitive data
 * Manipulate backend SQL queries
+* Retrieve sensitive user data
+* Bypass application logic
+
+📌 This simulates a **real-world web application security failure scenario**.
 
 ---
 
 ## 🎯 Objectives
 
-✔ Understand SQL Injection
-✔ Perform authentication bypass
-✔ Extract database data
-✔ Analyze real-world vulnerabilities
-✔ Learn mitigation strategies
+* Identify SQL Injection vulnerability
+* Perform column enumeration
+* Execute injection payload
+* Extract database records
+* Analyze security impact
 
 ---
 
-## 🛠 Tools & Technologies
+## 🛠 Tools & Environment
 
-* DVWA
-* XAMPP (Apache + MySQL)
-* phpMyAdmin
-* Visual Studio Code (VS Code)
-* Web Browser
-* Git & GitHub
+| Tool       | Purpose                       |
+| ---------- | ----------------------------- |
+| DVWA       | Vulnerable web application    |
+| XAMPP      | Local server (Apache + MySQL) |
+| phpMyAdmin | Database management           |
+| VS Code    | Documentation                 |
+| Browser    | Testing interface             |
 
 ---
 
 ## ⚙️ Environment Setup
 
-* Installed XAMPP
-* Started Apache & MySQL
-* Configured DVWA (`config.inc.php`)
-* Created database
-* Logged into DVWA
+### Step 1: Configure DVWA
 
-📸 Configuration
+📸
 ![Config](screenshots/config-inc-php.png)
 
+* Verified database credentials
+* Connected DVWA to MySQL
+
 ---
 
-## 🔑 DVWA Login
+### Step 2: Deployment Location
 
-**Credentials:**
+📸
+![DVWA Folder](screenshots/dvwa-file.png)
 
-* Username: `admin`
-* Password: `password`
+* DVWA hosted inside XAMPP `htdocs`
 
-📸 Login Page
+---
+
+### Step 3: Application Access
+
+📸
 ![Login](screenshots/dvwa-login-page.png)
 
----
-
-## 🧪 SQL Injection Attack
-
-### 🔹 Payload Used
-
-```sql
-' OR '1'='1
-```
-
-📸 Attack Execution
-![SQL Injection](screenshots/SQL-Injection.png)
+* Default credentials used for access
 
 ---
 
-## 💥 Exploitation Result
+## 🔍 Vulnerability Analysis
 
-* Authentication bypass successful
-* Multiple user records retrieved
-* Vulnerability confirmed
+### 🧪 Step 4: Column Enumeration
 
-📸 Output
-![Result](screenshots/Successfully-Login-1.png)
+To understand the backend query structure:
 
-📸 Additional Output
-![Result2](screenshots/Successfully-Login-2.png)
-
----
-
-## 🔍 Technical Breakdown
-
-### 🧾 Original Query
-
-```sql
-SELECT * FROM users WHERE id = 'INPUT';
-```
-
-### 💣 Injected Query
-
-```sql
-SELECT * FROM users WHERE id = '' OR '1'='1';
-```
-
-👉 Always TRUE → returns all records
-
----
-
-## 🚀 Advanced SQL Injection
-
-### 🔹 Column Enumeration
-
-```sql
+```sql id="dplk0m"
 1' ORDER BY 1 --
 1' ORDER BY 2 --
 1' ORDER BY 3 --
 ```
 
-📸 Column Detection
-![Columns](screenshots/attacking-number-of-columns.png)
+📸
+![Column Enumeration](screenshots/attacking-number-of-columns.png)
+
+🔎 **Insight:**
+Helps determine number of columns in the SQL query → required for advanced exploitation.
 
 ---
 
-### 🔹 UNION-Based Injection
+### 💉 Step 5: SQL Injection Execution
 
-```sql
-1' UNION SELECT user, password FROM users --
+Payload used:
+
+```sql id="g7q2l1"
+' OR '1'='1
 ```
 
-👉 Extracts usernames and passwords
+📸
+![Injection](screenshots/SQL-Injection.png)
+
+---
+
+### 💥 Step 6: Exploitation Result
+
+The application returned multiple records:
+
+* admin
+* Gordon Brown
+* Hack Me
+* Pablo Picasso
+* Bob Smith
+
+🔎 **Analysis:**
+
+* Input bypassed WHERE condition
+* Query returned all database entries
+* No input sanitization present
+
+---
+
+## ⚠️ Evidence Clarification
+
+The following screenshots represent **normal application behavior**, not attack results:
+
+📸
+![Dashboard](screenshots/Successfully-Login-1.png)
+
+📸
+![Dashboard2](screenshots/Successfully-Login-2.png)
+
+✔ These show:
+
+* Successful login dashboard
+* Not part of SQL Injection exploitation
 
 ---
 
 ## 🧑‍💻 Database Interaction
 
-📸 User Creation
-![User](screenshots/User-ID-Creation.png)
+📸
+![Database](screenshots/User-ID-Creation.png)
 
-📸 DVWA Files
-![DVWA](screenshots/dvwa-file.png)
+* User created via phpMyAdmin
+* Confirms backend database control
 
 ---
 
-## ⚠️ Vulnerability Severity
+## 🔬 Technical Breakdown
 
-| Factor               | Impact        |
-| -------------------- | ------------- |
-| Authentication       | ❌ Broken      |
-| Data Confidentiality | ❌ Compromised |
-| Data Integrity       | ⚠️ At Risk    |
-| System Security      | 🔥 High Risk  |
+### Original Query
+
+```sql id="zql9nx"
+SELECT * FROM users WHERE id = 'INPUT';
+```
+
+### Exploited Query
+
+```sql id="7v3i9m"
+SELECT * FROM users WHERE id = '' OR '1'='1';
+```
+
+📌 **Result:** Condition always TRUE → returns all rows
+
+---
+
+## 📊 Vulnerability Assessment
+
+| Metric             | Severity    |
+| ------------------ | ----------- |
+| CVSS Level         | 🔥 Critical |
+| Exploit Difficulty | Low         |
+| Impact             | High        |
+| Risk Level         | Severe      |
 
 ---
 
 ## 🔁 Attack Flow
 
-```
-User Input → Vulnerable Input Field → SQL Query Manipulation → Database Execution → Data Leakage
+```id="8ivn3c"
+User Input → Injection Payload → SQL Query Manipulation → Database Execution → Data Exposure
 ```
 
 ---
 
-## 🛡 Mitigation Techniques
+## 🛡 Mitigation Strategies
 
-✔ Prepared Statements
-✔ Parameterized Queries
-✔ Input Validation
-✔ Least Privilege Principle
-✔ Web Application Firewall (WAF)
+* Use Prepared Statements (Parameterized Queries)
+* Implement Input Validation & Sanitization
+* Apply Least Privilege Principle
+* Use Web Application Firewall (WAF)
+* Disable verbose error messages
+
+---
+
+## 🌍 Real-World Impact
+
+If exploited in production systems, this vulnerability can lead to:
+
+* Unauthorized data access
+* Credential leakage
+* Full database compromise
+* Privilege escalation
 
 ---
 
 ## 📁 Project Structure
 
-```
+```id="h9xq2r"
 Task-3-SQL-Injection/
 │
 ├── screenshots/
@@ -200,18 +236,18 @@ Task-3-SQL-Injection/
 
 ---
 
-## 🎯 Key Learnings
+## 🧠 Key Learnings
 
-* Real-world SQL Injection exploitation
-* Backend query manipulation
-* Database security risks
-* Hands-on penetration testing experience
+* SQL Injection remains one of the most critical web vulnerabilities
+* Lack of input validation leads to complete system compromise
+* Even basic payloads can expose entire databases
+* Secure coding practices are essential
 
 ---
 
-## 💼 Resume Description
+## 💼 Resume Highlight
 
-> Performed SQL Injection attacks on DVWA to demonstrate authentication bypass and data extraction vulnerabilities. Implemented various payloads including UNION-based injection and analyzed mitigation strategies.
+> Conducted SQL Injection testing on DVWA by performing column enumeration and exploiting authentication logic, resulting in full database record extraction and vulnerability impact assessment.
 
 ---
 
@@ -223,8 +259,8 @@ Task-3-SQL-Injection/
 
 ---
 
-## ⭐ Conclusion
+## ⭐ Final Thoughts
 
-This project highlights how critical vulnerabilities like SQL Injection can lead to **complete system compromise**, emphasizing the importance of secure coding and input validation.
+This case study demonstrates how a simple vulnerability can escalate into a **critical security breach**, reinforcing the need for secure development and proper input handling.
 
 ---
