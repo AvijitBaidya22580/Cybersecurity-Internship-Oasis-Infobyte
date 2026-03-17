@@ -1,4 +1,8 @@
-# 🔐 SQL Injection Case Study using DVWA
+<p align="center">
+  <img src="screenshots/banner.png" width="100%">
+</p>
+
+# 🔐 SQL Injection Case Study using DVWA  
 
 ![Cybersecurity](https://img.shields.io/badge/Domain-Cybersecurity-red)
 ![Vulnerability](https://img.shields.io/badge/Vulnerability-SQL%20Injection-critical)
