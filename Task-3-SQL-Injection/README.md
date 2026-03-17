@@ -1,4 +1,11 @@
-# 🔐 Task 3: SQL Injection Attack using DVWA
+# 🔐 SQL Injection Attack using DVWA
+
+![Security](https://img.shields.io/badge/Cybersecurity-SQL%20Injection-red)
+![Platform](https://img.shields.io/badge/Platform-DVWA-green)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+![Tools](https://img.shields.io/badge/Tools-XAMPP%20%7C%20DVWA%20%7C%20VSCode-blue)
+
+---
 
 ## 👨‍💻 Author
 
@@ -6,47 +13,61 @@
 
 ---
 
-## 📌 Overview
+## 📌 Project Overview
 
-This project demonstrates a **SQL Injection vulnerability** using DVWA (Damn Vulnerable Web Application). It shows how improper input validation can lead to **authentication bypass and database data exposure**.
+This project demonstrates a **SQL Injection vulnerability** using DVWA (Damn Vulnerable Web Application).
+
+It highlights how attackers can exploit weak input validation to:
+
+* Bypass authentication
+* Access sensitive data
+* Manipulate backend SQL queries
 
 ---
 
 ## 🎯 Objectives
 
-* Understand SQL Injection concepts
-* Exploit a vulnerable web application
-* Extract database records
-* Learn mitigation techniques
+✔ Understand SQL Injection
+✔ Perform authentication bypass
+✔ Extract database data
+✔ Analyze real-world vulnerabilities
+✔ Learn mitigation strategies
 
 ---
 
-## 🛠 Tools Used
+## 🛠 Tools & Technologies
 
 * DVWA
 * XAMPP (Apache + MySQL)
 * phpMyAdmin
+* Visual Studio Code (VS Code)
 * Web Browser
-* GitHub
+* Git & GitHub
 
 ---
 
 ## ⚙️ Environment Setup
 
-* Installed and started XAMPP
+* Installed XAMPP
+* Started Apache & MySQL
 * Configured DVWA (`config.inc.php`)
-* Created database using setup page
-* Logged in using default credentials
+* Created database
+* Logged into DVWA
+
+📸 Configuration
+![Config](screenshots/config-inc-php.png)
 
 ---
 
 ## 🔑 DVWA Login
 
+**Credentials:**
+
 * Username: `admin`
 * Password: `password`
 
-📸 Screenshot:
-![Login](screenshots/dvwa login page.png)
+📸 Login Page
+![Login](screenshots/dvwa-login-page.png)
 
 ---
 
@@ -58,43 +79,46 @@ This project demonstrates a **SQL Injection vulnerability** using DVWA (Damn Vul
 ' OR '1'='1
 ```
 
-📸 Execution:
-![SQL Injection](screenshots/SQL Injection.png)
+📸 Attack Execution
+![SQL Injection](screenshots/SQL-Injection.png)
 
 ---
 
-## 💥 Result
+## 💥 Exploitation Result
 
-* Retrieved all user records
-* Successfully bypassed authentication
-* Confirmed SQL Injection vulnerability
+* Authentication bypass successful
+* Multiple user records retrieved
+* Vulnerability confirmed
 
-📸 Output:
-![Data Leakage](screenshots/Successfully Login 1.png)
+📸 Output
+![Result](screenshots/Successfully-Login-1.png)
+
+📸 Additional Output
+![Result2](screenshots/Successfully-Login-2.png)
 
 ---
 
-## 🔍 Technical Explanation
+## 🔍 Technical Breakdown
 
-### Original Query:
+### 🧾 Original Query
 
 ```sql
 SELECT * FROM users WHERE id = 'INPUT';
 ```
 
-### Injected Query:
+### 💣 Injected Query
 
 ```sql
 SELECT * FROM users WHERE id = '' OR '1'='1';
 ```
 
-👉 Condition always TRUE → returns all records
+👉 Always TRUE → returns all records
 
 ---
 
 ## 🚀 Advanced SQL Injection
 
-### 🔹 Column Detection
+### 🔹 Column Enumeration
 
 ```sql
 1' ORDER BY 1 --
@@ -102,8 +126,8 @@ SELECT * FROM users WHERE id = '' OR '1'='1';
 1' ORDER BY 3 --
 ```
 
-📸
-![Column Detection](screenshots/attacking number of columns.png)
+📸 Column Detection
+![Columns](screenshots/attacking-number-of-columns.png)
 
 ---
 
@@ -113,45 +137,46 @@ SELECT * FROM users WHERE id = '' OR '1'='1';
 1' UNION SELECT user, password FROM users --
 ```
 
-👉 Extracts:
-
-* Usernames
-* Password hashes
+👉 Extracts usernames and passwords
 
 ---
 
-## 🧑‍💻 Additional Observations
+## 🧑‍💻 Database Interaction
 
-* Created additional users in database
-* SQL Injection retrieves all entries from users table
+📸 User Creation
+![User](screenshots/User-ID-Creation.png)
 
-📸
-![User Creation](screenshots/User ID Creation.png)
-
----
-
-## ⚠️ Security Impact
-
-* Authentication bypass
-* Data leakage
-* Unauthorized database access
-* Risk of full system compromise
+📸 DVWA Files
+![DVWA](screenshots/dvwa-file.png)
 
 ---
 
-## 🔥 Exploit Summary
+## ⚠️ Vulnerability Severity
 
-The application is vulnerable to SQL Injection due to improper input validation. Attackers can manipulate SQL queries to bypass authentication and extract complete database records.
+| Factor               | Impact        |
+| -------------------- | ------------- |
+| Authentication       | ❌ Broken      |
+| Data Confidentiality | ❌ Compromised |
+| Data Integrity       | ⚠️ At Risk    |
+| System Security      | 🔥 High Risk  |
+
+---
+
+## 🔁 Attack Flow
+
+```
+User Input → Vulnerable Input Field → SQL Query Manipulation → Database Execution → Data Leakage
+```
 
 ---
 
 ## 🛡 Mitigation Techniques
 
-* Use prepared statements
-* Input validation and sanitization
-* Parameterized queries
-* Least privilege principle
-* Web Application Firewall (WAF)
+✔ Prepared Statements
+✔ Parameterized Queries
+✔ Input Validation
+✔ Least Privilege Principle
+✔ Web Application Firewall (WAF)
 
 ---
 
@@ -161,26 +186,32 @@ The application is vulnerable to SQL Injection due to improper input validation.
 Task-3-SQL-Injection/
 │
 ├── screenshots/
-│   ├── attacking number of columns.png
-│   ├── config.inc.php.png
-│   ├── DVWA File.png
-│   ├── dvwa login page.png
-│   ├── SQL Injection.png
-│   ├── Successfully Login 1.png
-│   ├── Successfully Login 2.png
-│   └── User ID Creation.png
+│   ├── attacking-number-of-columns.png
+│   ├── config-inc-php.png
+│   ├── dvwa-file.png
+│   ├── dvwa-login-page.png
+│   ├── SQL-Injection.png
+│   ├── Successfully-Login-1.png
+│   ├── Successfully-Login-2.png
+│   └── User-ID-Creation.png
 │
 └── README.md
 ```
 
 ---
 
-## 🎯 Learning Outcomes
+## 🎯 Key Learnings
 
-* Practical SQL Injection exploitation
-* Understanding of web vulnerabilities
+* Real-world SQL Injection exploitation
+* Backend query manipulation
+* Database security risks
 * Hands-on penetration testing experience
-* Secure coding awareness
+
+---
+
+## 💼 Resume Description
+
+> Performed SQL Injection attacks on DVWA to demonstrate authentication bypass and data extraction vulnerabilities. Implemented various payloads including UNION-based injection and analyzed mitigation strategies.
 
 ---
 
@@ -189,5 +220,11 @@ Task-3-SQL-Injection/
 * https://owasp.org/www-community/attacks/SQL_Injection
 * https://portswigger.net/web-security/sql-injection
 * https://en.wikipedia.org/wiki/SQL_injection
+
+---
+
+## ⭐ Conclusion
+
+This project highlights how critical vulnerabilities like SQL Injection can lead to **complete system compromise**, emphasizing the importance of secure coding and input validation.
 
 ---
