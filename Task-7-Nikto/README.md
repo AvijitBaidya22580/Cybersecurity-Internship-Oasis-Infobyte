@@ -1,7 +1,7 @@
 # 🔐 Web Server Vulnerability Assessment using Nikto
 
 <p align="center">
-  <img src="screenshots/nikto-scan.png" alt="Nikto Scan Output" width="900"/>
+  <img src="screenshots/banner.png" alt="Nikto Scan Output" width="900"/>
 </p>
 
 ---
