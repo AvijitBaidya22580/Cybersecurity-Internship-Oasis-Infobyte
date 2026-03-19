@@ -1,7 +1,7 @@
 # 🔐 Network Security Assessment Report
 
 <p align="center">
-  <b>Comprehensive Security Analysis using Nmap & Wireshark</b>
+  <b>Comprehensive Network Security Analysis using Nmap & Wireshark</b>
 </p>
 
 ---
@@ -14,23 +14,21 @@
 
 ## 📌 Executive Summary
 
-This report presents a **comprehensive network security assessment** conducted on a local test environment using **Nmap** and **Wireshark**.
+This report presents a **detailed network security assessment** conducted on a local lab environment hosting DVWA on XAMPP.
 
-The objective was to identify:
+The assessment combines:
 
-* Open ports and services
-* Potential vulnerabilities
-* Network communication behavior
-* Security misconfigurations
+* 🔍 **Active scanning (Nmap)**
+* 📡 **Passive traffic analysis (Wireshark)**
 
-The analysis reveals multiple security concerns, particularly related to **outdated services, exposed ports, and insecure communication channels**.
+The findings reveal **multiple exposed services, legacy protocols, and potential attack surfaces**, highlighting critical security risks.
 
 ---
 
 ## 🎯 Scope of Assessment
 
-* Target System: `192.168.1.5`
-* Environment: Local lab (DVWA hosted on XAMPP)
+* Target IP: `192.168.1.5`
+* Environment: Localhost (XAMPP + DVWA)
 * Tools Used:
 
   * Nmap
@@ -42,137 +40,185 @@ The analysis reveals multiple security concerns, particularly related to **outda
 
 ### 1️⃣ Network Scanning (Nmap)
 
-Performed using:
+Command used:
 
-```bash
-nmap -sV -sC -O 192.168.1.5
+```bash id="ny2tno"
+nmap -sV -sC -O 192.168.1.5 -oN nmap_results.txt
 ```
-
-Objectives:
-
-* Identify open ports
-* Detect running services
-* Determine OS and versions
 
 ---
 
 ### 2️⃣ Traffic Analysis (Wireshark)
 
-* Captured live network traffic
+* Captured live network packets
 * Applied filters:
 
-  * `http`
-  * `dns`
-  * `tcp`
-  * `tls`
-
-Objectives:
-
-* Analyze packet flow
-* Detect insecure communication
-* Observe protocol behavior
+  * DNS
+  * TCP
+  * TLS
+  * HTTP
 
 ---
 
 ## 🔍 Nmap Scan Results
 
-### 🟢 Open Ports Identified
+<p align="center">
+  <img src="screenshots/nmap-scan-1.png" width="48%">
+  <img src="screenshots/nmap-scan-2.png" width="48%">
+</p>
 
-| Port | Service | Description         |
-| ---- | ------- | ------------------- |
-| 80   | HTTP    | Web server (Apache) |
-| 3306 | MySQL   | Database service    |
+<p align="center">
+  <i>Figure: Nmap scan results showing open ports, services, and system fingerprinting</i>
+</p>
+
+### 🟢 Open Ports & Services
+
+| Port | Service | Version               | Risk      |
+| ---- | ------- | --------------------- | --------- |
+| 80   | HTTP    | Apache 2.4.58 (XAMPP) | 🔴 High   |
+| 135  | MSRPC   | Microsoft RPC         | 🟠 Medium |
+| 139  | NetBIOS | Windows NetBIOS       | 🔴 High   |
+| 443  | HTTPS   | Apache SSL            | 🟡 Low    |
+| 445  | SMB     | Microsoft-DS          | 🔴 High   |
+| 3306 | MySQL   | MariaDB               | 🔴 High   |
 
 ---
 
-### ⚠️ Key Findings
+## 🚨 Critical Findings
 
-* Apache server is running on port 80
-* MySQL service exposed
-* No HTTPS (port 443) detected
-* Indicates **lack of encrypted communication**
+### 🔴 1. SMB (Port 445) Exposure
+
+* Allows file sharing access
+* Common target for attacks (e.g., WannaCry)
+* Can lead to **remote code execution**
 
 ---
 
-## 📡 Wireshark Analysis
+### 🔴 2. NetBIOS (Port 139)
 
-### Observed Traffic:
+* Legacy protocol
+* Vulnerable to enumeration attacks
+* Can expose system information
 
-* DNS queries (domain resolution)
-* HTTP requests (DVWA interaction)
+---
+
+### 🔴 3. MySQL Database Exposure (Port 3306)
+
+* Database directly accessible
+* Risk of unauthorized access
+* Potential data leakage
+
+---
+
+### 🔴 4. HTTP Service (Port 80)
+
+* Unencrypted communication
+* Vulnerable to:
+
+  * Sniffing
+  * Man-in-the-Middle attacks
+
+---
+
+### 🟡 5. HTTPS Configuration Issues
+
+* Self-signed certificate detected
+* Not trusted → vulnerable to spoofing
+
+---
+
+### 🟠 6. MSRPC Service (Port 135)
+
+* Used for Windows communication
+* Can be exploited for lateral movement
+
+---
+
+## 📡 Wireshark Traffic Capture
+
+<p align="center">
+  <img src="screenshots/wireshark-capture.png" width="85%">
+</p>
+
+<p align="center">
+  <i>Figure: Captured network traffic including DNS queries, TCP handshakes, and encrypted TLS/QUIC communication</i>
+</p>
+
+### Observed Traffic
+
+* DNS queries for domain resolution
 * TCP handshake sequences
-* TLS traffic (external sites)
-* QUIC protocol activity
+* QUIC protocol traffic
+* TLS encrypted communication
+* HTTP/DVWA traffic
 
 ---
 
-### 🔴 Critical Observation
+### 🔍 Key Observations
 
-* DVWA traffic over HTTP is **unencrypted**
-* Sensitive data can be intercepted
+#### 🔴 Unencrypted Traffic (DVWA)
 
----
-
-### 🔒 Secure Traffic Observation
-
-* External traffic uses:
-
-  * TLS 1.3
-  * QUIC
-
-* Payload is encrypted → not readable
+* Data transmitted via HTTP
+* Fully visible in packet capture
 
 ---
 
-## 🔐 Security Vulnerabilities Identified
+#### 🔒 Encrypted Traffic (External)
 
-### 🚨 1. Unencrypted HTTP Communication
-
-* Data transmitted in plaintext
-* Vulnerable to packet sniffing
+* TLS 1.3 + QUIC used
+* Payload encrypted → secure communication
 
 ---
 
-### 🚨 2. Open Ports Exposure
+#### 🌐 DNS Activity
 
-* Port 80 and 3306 accessible
-* Increases attack surface
-
----
-
-### 🚨 3. Outdated Software (from previous scan)
-
-* Apache
-* PHP
-* OpenSSL
-
----
-
-### 🚨 4. Lack of Security Headers
-
-* Missing HTTP security configurations
+* Domain resolution visible
+* Can be used for traffic profiling
 
 ---
 
 ## 📊 Risk Assessment
 
-| Vulnerability        | Severity  |
-| -------------------- | --------- |
-| HTTP (No Encryption) | 🔴 High   |
-| Open Ports Exposure  | 🟠 Medium |
-| Outdated Software    | 🔴 High   |
-| Misconfiguration     | 🟠 Medium |
+| Vulnerability            | Severity    |
+| ------------------------ | ----------- |
+| SMB Exposure (445)       | 🔴 Critical |
+| NetBIOS Exposure (139)   | 🔴 High     |
+| MySQL Exposure (3306)    | 🔴 High     |
+| HTTP (No Encryption)     | 🔴 High     |
+| MSRPC Service            | 🟠 Medium   |
+| Weak HTTPS (Self-signed) | 🟡 Low      |
 
 ---
 
 ## 🛡 Recommendations
 
-* Enable HTTPS (SSL/TLS)
-* Close unused ports
-* Restrict MySQL access
-* Update all software components
-* Implement security headers
+### 🔐 Network Security
+
+* Disable SMB & NetBIOS if not required
+* Restrict port 3306 (MySQL) access
 * Use firewall rules
+
+---
+
+### 🌐 Web Security
+
+* Enforce HTTPS (valid SSL certificate)
+* Disable HTTP access
+
+---
+
+### ⚙️ System Hardening
+
+* Update Apache, PHP, OpenSSL
+* Disable unused services
+* Apply security patches
+
+---
+
+### 📡 Monitoring
+
+* Use IDS/IPS systems
+* Monitor network traffic continuously
 
 ---
 
@@ -186,22 +232,22 @@ Objectives:
 
 ## 🎥 Demo Idea
 
-* Run Nmap scan
-* Capture traffic in Wireshark
-* Show packet filtering
+* Perform Nmap scan
+* Capture packets in Wireshark
+* Filter HTTP and TLS traffic
 * Explain vulnerabilities
 
 ---
 
 ## 🏁 Conclusion
 
-The assessment highlights that **basic misconfigurations and lack of encryption** can expose systems to significant security risks.
+The assessment highlights that **misconfigured services and exposed ports significantly increase attack surface**.
 
-This project demonstrates the importance of:
+This project demonstrates:
 
-* Secure communication
-* Network monitoring
-* Regular vulnerability assessments
+* Importance of port management
+* Need for encryption
+* Value of network monitoring
 
 ---
 
