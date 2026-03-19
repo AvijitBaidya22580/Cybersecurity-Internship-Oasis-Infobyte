@@ -1,8 +1,8 @@
 ![Wireshark Banner](screenshots/banner.png)
 
-# 🦈 Capture & Analyze Network Traffic with Wireshark
-
-### Network Traffic Analysis | DVWA Lab | Kali Linux
+<h1 align="center">🦈 Capture & Analyze Network Traffic with Wireshark</h1>
+<br>
+<p align="center"><b>Network Traffic Analysis | DVWA Lab | Kali Linux</b></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Tool-Wireshark-blue?style=for-the-badge">
