@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Task-3-SQL-Injection/screenshots/banner.png" width="100%">
+  <img src="banner.png" width="100%">
 </p>
 
 <h1 align="center">🛡️ Cybersecurity Internship Project – Oasis Infobyte</h1>
@@ -55,7 +55,7 @@ The project focuses on identifying, analyzing, and exploiting vulnerabilities us
 ## 🔓 Task 3: SQL Injection (Core Skill)
 
 <p align="center">
-  <img src="Task-3-SQL-Injection/screenshots/SQL-Injection.png" width="80%">
+  <img src="Task-3-SQL-Injection/screenshots/banner.png" width="80%">
 </p>
 
 ### 📌 Description
