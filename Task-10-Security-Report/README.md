@@ -1,225 +1,210 @@
-![Wireshark Banner](screenshots/banner.png)
-
-# 🦈 Capture & Analyze Network Traffic with Wireshark
-
-### Network Traffic Analysis | DVWA Lab | Kali Linux
+# 🔐 Network Security Assessment Report
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Tool-Wireshark-blue?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Platform-Kali_Linux-black?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Environment-DVWA-green?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Server-XAMPP-orange?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Type-Network_Analysis-red?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge">
+  <b>Comprehensive Security Analysis using Nmap & Wireshark</b>
 </p>
-
----
-
-## 📌 Executive Summary
-
-This project presents a **comprehensive real-world network traffic analysis** using **Wireshark** in a controlled cybersecurity lab environment.
-
-The analysis includes both:
-
-* 🌐 **Insecure web traffic (DVWA over HTTP via XAMPP)**
-* 🔒 **Secure communication (HTTPS, TLS 1.3, QUIC)**
-
-This case study demonstrates how data flows across networks, how secure channels are established, and how attackers or analysts interpret packet-level information.
-
----
-
-## 🎯 Objectives
-
-* Capture live network traffic using Wireshark
-* Analyze DNS, HTTP, TCP, TLS, and QUIC protocols
-* Understand plaintext vs encrypted communication
-* Perform packet-level inspection and interpretation
-* Simulate real-world network monitoring scenarios
-
----
-
-## 🛠 Tools & Technologies
-
-* **Wireshark** – Network protocol analyzer
-* **DVWA (Damn Vulnerable Web Application)** – Vulnerable test platform
-* **XAMPP** – Local Apache & MySQL server
-* **Kali Linux** – Security analysis environment
-* **VS Code** – Documentation and workflow management
-* **Web Browser** – Traffic generation
-
----
-
-## 🌐 Network Environment
-
-| Component          | Value                     |
-| ------------------ | ------------------------- |
-| Attacker Machine   | 10.0.2.15                 |
-| Gateway            | 192.168.1.1               |
-| Local Server       | XAMPP (Apache)            |
-| Web Application    | DVWA                      |
-| External Domain    | chatgpt.com               |
-| Protocols Observed | DNS, HTTP, TCP, TLS, QUIC |
-
----
-
-## 📸 Capture Evidence
-
-![Wireshark Capture](screenshots/wireshark-capture.png)
-
----
-
-## 🔍 Packet Analysis
-
-### 1️⃣ DNS Resolution
-
-* Queries sent to DNS server (`192.168.1.1`)
-* Domain resolved into:
-
-  * `104.18.32.47`
-  * `172.64.155.209`
-
-📌 **Insight:**
-DNS reveals metadata such as visited domains even in encrypted environments.
-
----
-
-### 2️⃣ HTTP Traffic (DVWA – Vulnerable Environment)
-
-* DVWA hosted on XAMPP uses **HTTP (plaintext)**
-* Requests and responses are visible
-
-📌 **Insight:**
-Sensitive data like login credentials can be intercepted → **critical vulnerability**
-
----
-
-### 3️⃣ TCP Handshake
-
-* SYN → SYN-ACK → ACK
-
-📌 **Insight:**
-Ensures reliable connection establishment before data transfer.
-
----
-
-### 4️⃣ TLS 1.3 Encryption
-
-* Client Hello
-* Server Hello
-* Encrypted Application Data
-
-📌 **Insight:**
-After handshake, payload becomes unreadable → protects sensitive data.
-
----
-
-### 5️⃣ QUIC Protocol (HTTP/3)
-
-* Runs over UDP
-* Includes Initial + Protected Payload packets
-
-📌 **Insight:**
-Improves speed and performance but limits packet inspection.
-
----
-
-## 🔬 Deep Packet Inspection (Advanced)
-
-![Packet Detail](screenshots/wireshark-packet-detail.png)
-
-This view exposes:
-
-* Ethernet Frame
-* IP Header
-* TCP Segment
-* Raw Hexadecimal Data
-
-📌 **Insight:**
-Used in advanced forensic analysis and low-level debugging.
-
----
-
-## 🔐 Security Analysis
-
-* 🔓 HTTP traffic exposes sensitive data (DVWA)
-* 🔒 HTTPS traffic is encrypted using TLS 1.3
-* 🌐 DNS leaks domain-level metadata
-* ⚡ QUIC reduces visibility for deep inspection
-* 👁️ Attackers exploit insecure HTTP endpoints
-
----
-
-## ⚠️ Key Observations
-
-* Plain HTTP is **highly insecure**
-* Modern systems rely heavily on encryption
-* Encrypted traffic hides payload but not metadata
-* Network analysis still provides valuable intelligence
-
----
-
-## 📁 Project Structure
-
-Task-8-Wireshark/
-│── screenshots/
-│   ├── banner.png
-│   ├── wireshark-capture.png
-│   └── wireshark-packet-detail.png
-│
-│── wireshark_capture.pcapng
-│── README.md
-
----
-
-## 🎥 Demonstration Workflow
-
-1. Start XAMPP (Apache & MySQL)
-2. Launch DVWA in browser
-3. Start Wireshark capture (`eth0`)
-4. Perform actions (login, browsing, requests)
-5. Apply filters:
-
-   ```
-   http
-   dns
-   tcp
-   tls
-   quic
-   ```
-6. Analyze packets
-7. Save `.pcapng` file
-
----
-
-## 🚀 Key Learning Outcomes
-
-* Hands-on packet sniffing and traffic analysis
-* Understanding of modern network protocols
-* Ability to analyze secure vs insecure communication
-* Real-world cybersecurity monitoring skills
-* Practical exposure to vulnerable web environments
-
----
-
-## 🏁 Conclusion
-
-This project demonstrates how network traffic behaves across both **secure (HTTPS)** and **insecure (HTTP)** environments.
-
-By integrating **DVWA, XAMPP, and Wireshark**, it provides a realistic simulation of:
-
-* Network monitoring
-* Traffic interception
-* Security analysis
-
-It highlights the importance of:
-
-* Secure communication (HTTPS)
-* Proper server configuration
-* Continuous network monitoring
 
 ---
 
 ## 👨‍💻 Author
 
 **Avijit Baidya**
-Cybersecurity Enthusiast | Aspiring Security Engineer 🚀
+
+---
+
+## 📌 Executive Summary
+
+This report presents a **comprehensive network security assessment** conducted on a local test environment using **Nmap** and **Wireshark**.
+
+The objective was to identify:
+
+* Open ports and services
+* Potential vulnerabilities
+* Network communication behavior
+* Security misconfigurations
+
+The analysis reveals multiple security concerns, particularly related to **outdated services, exposed ports, and insecure communication channels**.
+
+---
+
+## 🎯 Scope of Assessment
+
+* Target System: `192.168.1.5`
+* Environment: Local lab (DVWA hosted on XAMPP)
+* Tools Used:
+
+  * Nmap
+  * Wireshark
+
+---
+
+## 🛠 Methodology
+
+### 1️⃣ Network Scanning (Nmap)
+
+Performed using:
+
+```bash
+nmap -sV -sC -O 192.168.1.5
+```
+
+Objectives:
+
+* Identify open ports
+* Detect running services
+* Determine OS and versions
+
+---
+
+### 2️⃣ Traffic Analysis (Wireshark)
+
+* Captured live network traffic
+* Applied filters:
+
+  * `http`
+  * `dns`
+  * `tcp`
+  * `tls`
+
+Objectives:
+
+* Analyze packet flow
+* Detect insecure communication
+* Observe protocol behavior
+
+---
+
+## 🔍 Nmap Scan Results
+
+### 🟢 Open Ports Identified
+
+| Port | Service | Description         |
+| ---- | ------- | ------------------- |
+| 80   | HTTP    | Web server (Apache) |
+| 3306 | MySQL   | Database service    |
+
+---
+
+### ⚠️ Key Findings
+
+* Apache server is running on port 80
+* MySQL service exposed
+* No HTTPS (port 443) detected
+* Indicates **lack of encrypted communication**
+
+---
+
+## 📡 Wireshark Analysis
+
+### Observed Traffic:
+
+* DNS queries (domain resolution)
+* HTTP requests (DVWA interaction)
+* TCP handshake sequences
+* TLS traffic (external sites)
+* QUIC protocol activity
+
+---
+
+### 🔴 Critical Observation
+
+* DVWA traffic over HTTP is **unencrypted**
+* Sensitive data can be intercepted
+
+---
+
+### 🔒 Secure Traffic Observation
+
+* External traffic uses:
+
+  * TLS 1.3
+  * QUIC
+
+* Payload is encrypted → not readable
+
+---
+
+## 🔐 Security Vulnerabilities Identified
+
+### 🚨 1. Unencrypted HTTP Communication
+
+* Data transmitted in plaintext
+* Vulnerable to packet sniffing
+
+---
+
+### 🚨 2. Open Ports Exposure
+
+* Port 80 and 3306 accessible
+* Increases attack surface
+
+---
+
+### 🚨 3. Outdated Software (from previous scan)
+
+* Apache
+* PHP
+* OpenSSL
+
+---
+
+### 🚨 4. Lack of Security Headers
+
+* Missing HTTP security configurations
+
+---
+
+## 📊 Risk Assessment
+
+| Vulnerability        | Severity  |
+| -------------------- | --------- |
+| HTTP (No Encryption) | 🔴 High   |
+| Open Ports Exposure  | 🟠 Medium |
+| Outdated Software    | 🔴 High   |
+| Misconfiguration     | 🟠 Medium |
+
+---
+
+## 🛡 Recommendations
+
+* Enable HTTPS (SSL/TLS)
+* Close unused ports
+* Restrict MySQL access
+* Update all software components
+* Implement security headers
+* Use firewall rules
+
+---
+
+## 📁 Deliverables
+
+* `network_security_assessment.md`
+* `nmap_results.txt`
+* `wireshark_capture.pcap`
+
+---
+
+## 🎥 Demo Idea
+
+* Run Nmap scan
+* Capture traffic in Wireshark
+* Show packet filtering
+* Explain vulnerabilities
+
+---
+
+## 🏁 Conclusion
+
+The assessment highlights that **basic misconfigurations and lack of encryption** can expose systems to significant security risks.
+
+This project demonstrates the importance of:
+
+* Secure communication
+* Network monitoring
+* Regular vulnerability assessments
+
+---
+
+## ⚠ Disclaimer
+
+This assessment was conducted in a controlled lab environment for educational purposes only.
