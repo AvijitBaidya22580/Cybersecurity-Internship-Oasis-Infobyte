@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="banner.png" width="100%">
+  <img src="screenshots/banner.png" width="100%">
 </p>
 
 <h1 align="center">🔐 Network Security Assessment Report</h1>
