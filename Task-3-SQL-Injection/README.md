@@ -2,15 +2,15 @@
   <img src="screenshots/banner.png" width="100%">
 </p>
 
-<p align="center">
- <"# 🔐 SQL Injection Case Study using DVWA">
-</p>
+<h1 align="center">🔐 SQL Injection Case Study using DVWA</h1>
 
-![Cybersecurity](https://img.shields.io/badge/Domain-Cybersecurity-red)
-![Vulnerability](https://img.shields.io/badge/Vulnerability-SQL%20Injection-critical)
-![Platform](https://img.shields.io/badge/Platform-DVWA-green)
-![Tools](https://img.shields.io/badge/Tools-XAMPP%20%7C%20VSCode-blue)
-![Status](https://img.shields.io/badge/Status-Completed-success)
+<p align="center">
+ <img src="https://img.shields.io/badge/Domain-Cybersecurity-red"/>
+ <img src="https://img.shields.io/badge/Vulnerability-SQL%20Injection-critical"/>
+ <img src="https://img.shields.io/badge/Platform-DVWA-green"/>
+ <img src="https://img.shields.io/badge/Tools-XAMPP%20%7C%20VSCode-blue"/>
+ <img src="https://img.shields.io/badge/Status-Completed-success"/>
+</p>
 
 ---
 
