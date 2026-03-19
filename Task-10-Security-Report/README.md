@@ -31,8 +31,8 @@ The analysis identifies **open ports, exposed services, insecure communication, 
 ## 🔍 Nmap Scan Evidence
 
 <p align="center">
-  <img src="nmap-scan-1.png" width="48%">
-  <img src="nmap-scan-2.png" width="48%">
+  <img src="screenshots/nmap-scan-1.png" width="48%">
+  <img src="screenshots/nmap-scan-2.png" width="48%">
 </p>
 
 <p align="center"><i>Figure: Nmap scan showing open ports and services</i></p>
@@ -42,7 +42,7 @@ The analysis identifies **open ports, exposed services, insecure communication, 
 ## 📡 Wireshark Traffic Capture
 
 <p align="center">
-  <img src="wireshark-capture.png" width="85%">
+  <img src="screenshots/wireshark-capture.png" width="85%">
 </p>
 
 <p align="center"><i>Figure: Captured traffic including DNS, TCP, TLS, and QUIC</i></p>
