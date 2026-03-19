@@ -60,7 +60,7 @@ nmap -sV -sC -O 192.168.1.5 -oN nmap_results.txt
 
 ---
 
-## 🔍 Nmap Scan Results
+## 🔍 Nmap Scan Evidence
 
 <p align="center">
   <img src="screenshots/nmap-scan-1.png" width="48%">
@@ -68,7 +68,7 @@ nmap -sV -sC -O 192.168.1.5 -oN nmap_results.txt
 </p>
 
 <p align="center">
-  <i>Figure: Nmap scan results showing open ports, services, and system fingerprinting</i>
+  <i>Figure: Nmap scan results showing open ports (80 - HTTP, 3306 - MySQL) and service detection</i>
 </p>
 
 ### 🟢 Open Ports & Services
@@ -134,14 +134,14 @@ nmap -sV -sC -O 192.168.1.5 -oN nmap_results.txt
 
 ---
 
-## 📡 Wireshark Traffic Capture
+## 📡 Wireshark Traffic Analysis
 
 <p align="center">
   <img src="screenshots/wireshark-capture.png" width="85%">
 </p>
 
 <p align="center">
-  <i>Figure: Captured network traffic including DNS queries, TCP handshakes, and encrypted TLS/QUIC communication</i>
+  <i>Figure: Network traffic capture showing DNS queries, TCP communication, and encrypted TLS/QUIC packets</i>
 </p>
 
 ### Observed Traffic
