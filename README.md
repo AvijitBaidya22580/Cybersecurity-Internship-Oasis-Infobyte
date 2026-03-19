@@ -128,7 +128,7 @@ Performed full network security assessment using Nmap & Wireshark.
 * Exposure of critical services
 * Unencrypted communication risks
 
-👉 [View Full Report](Task-10-Security-Report/network_security_assessment.md)
+👉 [View Full Report](Task-10-Security-Report/README.md)
 
 ---
 
