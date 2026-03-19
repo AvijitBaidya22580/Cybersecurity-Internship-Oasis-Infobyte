@@ -128,7 +128,8 @@ Improves speed and performance but limits packet inspection.
 
 ## 🔬 Deep Packet Inspection (Advanced)
 
-![Packet Detail](screenshots/wireshark-packet-detail.png)
+<p align="center">
+  <img src="screenshots/wireshark-packet-detail.png" width="85%">
 
 This view exposes:
 
