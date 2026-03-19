@@ -64,7 +64,10 @@ This case study demonstrates how data flows across networks, how secure channels
 
 ## 📸 Capture Evidence
 
-![Wireshark Capture](screenshots/wireshark-capture.png)
+<p align="center">
+  <img src="screenshots/wireshark-capture.png" width="85%">
+</p>
+<p align="center"><i>Figure: Captured network traffic showing DNS, QUIC, and TLS packets</i></p>
 
 ---
 
