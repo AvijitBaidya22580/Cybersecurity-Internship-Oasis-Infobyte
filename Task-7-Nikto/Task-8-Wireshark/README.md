@@ -1,36 +1,38 @@
-# 🦈 Advanced Network Traffic Analysis using Wireshark
+# 🦈 Capture & Analyze Network Traffic using Wireshark
 
-![Wireshark Banner](screenshots/banner.png)
+![Task 8 Banner](screenshots/banner.png)
 
 ---
 
 ## 📌 Executive Summary
 
-This project presents a **comprehensive analysis of real-world network traffic** captured using **Wireshark**, within a controlled lab environment powered by **DVWA (Damn Vulnerable Web Application)** and **XAMPP**.
+This project demonstrates **real-time network traffic capture and deep packet analysis** using **Wireshark** in a controlled cybersecurity lab environment.
 
-The objective is to simulate realistic web traffic, capture it at the network level, and analyze how modern protocols such as **DNS, HTTP, TCP, QUIC, and TLS 1.3** operate in practice.
+The analysis includes both:
 
-This case study highlights how **secure communication is established**, how **data flows across networks**, and how **encryption impacts visibility**, making it highly relevant for real-world cybersecurity analysis.
+* 🌐 **Local vulnerable web traffic (DVWA over HTTP via XAMPP)**
+* 🔒 **Real-world encrypted traffic (HTTPS, TLS 1.3, QUIC)**
+
+The objective is to understand how data flows across networks, how secure communication is established, and how attackers or analysts interpret network-level information.
 
 ---
 
 ## 🎯 Objectives
 
-* Capture live network packets using Wireshark
-* Analyze DNS resolution and web traffic behavior
-* Observe HTTP communication using DVWA
-* Understand TCP handshake and session establishment
-* Analyze encrypted traffic (TLS & QUIC)
-* Evaluate security implications of captured traffic
+* Capture live network traffic using Wireshark
+* Analyze DNS, HTTP, TCP, TLS, and QUIC protocols
+* Understand plaintext vs encrypted communication
+* Perform packet-level inspection and interpretation
+* Simulate real-world traffic monitoring scenarios
 
 ---
 
-## 🛠 Tools & Technologies Used
+## 🛠 Tools & Technologies
 
 * **Wireshark** – Network packet analyzer
-* **DVWA (Damn Vulnerable Web Application)** – Vulnerable web app for testing
-* **XAMPP** – Local web server (Apache + MySQL)
-* **Kali Linux** – Analysis environment
+* **DVWA (Damn Vulnerable Web Application)** – Vulnerable test environment
+* **XAMPP** – Apache + MySQL server for hosting DVWA
+* **Kali Linux** – Network analysis platform
 * **VS Code** – Documentation and project management
 * **Web Browser** – Traffic generation
 
@@ -43,7 +45,7 @@ This case study highlights how **secure communication is established**, how **da
 | Attacker Machine   | 10.0.2.15                 |
 | Gateway            | 192.168.1.1               |
 | Local Server       | XAMPP (Apache)            |
-| Web Application    | DVWA                      |
+| Web App            | DVWA                      |
 | External Domain    | chatgpt.com               |
 | Protocols Observed | DNS, HTTP, TCP, TLS, QUIC |
 
@@ -51,99 +53,105 @@ This case study highlights how **secure communication is established**, how **da
 
 ## 📸 Capture Evidence
 
-### 🔹 Network Traffic Overview
-
 ![Wireshark Capture](screenshots/wireshark-capture.png)
 
-### 🔹 Deep Packet Inspection (Advanced)
+---
 
-![Packet Detail](screenshots/wireshark-packet-detail.png)
+## 🔍 Packet Analysis
+
+### 1️⃣ DNS Resolution
+
+The communication begins with DNS queries:
+
+* `A` and `AAAA` requests sent to DNS server
+* Domain `chatgpt.com` resolved to:
+
+  * `104.18.32.47`
+  * `172.64.155.209`
+
+📌 **Insight:**
+DNS queries reveal user activity and target domains even in encrypted environments.
 
 ---
 
-## 🔍 Detailed Packet Analysis
+### 2️⃣ HTTP Traffic (DVWA – Vulnerable Environment)
 
-### 1️⃣ DNS Resolution Phase
+* DVWA runs on **XAMPP (Apache) using HTTP**
+* Requests and responses are transmitted in **plaintext**
 
-The communication begins with DNS queries to resolve domain names into IP addresses:
-
-* Query Types: **A (IPv4), AAAA (IPv6)**
-* DNS Server: `192.168.1.1`
-
-Resolved IPs:
-
-* `104.18.32.47`
-* `172.64.155.209`
-
-**Insight:**
-DNS acts as the entry point of all web communication and can reveal metadata about user activity.
+📌 **Insight:**
+Sensitive data (e.g., credentials) can be intercepted easily → **major security risk**
 
 ---
 
-### 2️⃣ HTTP Traffic (DVWA - Local Testing)
+### 3️⃣ TCP Communication
 
-When interacting with DVWA (hosted on XAMPP):
-
-* HTTP requests and responses are transmitted in **plain text**
-* User inputs (e.g., login credentials) can be captured
-
-**Insight:**
-Unlike HTTPS, HTTP traffic is **not encrypted**, making it vulnerable to interception and analysis.
-
----
-
-### 3️⃣ QUIC Protocol (HTTP/3)
-
-Observed traffic shows QUIC communication:
-
-* Runs over UDP
-* Includes Initial and Protected Payload packets
-
-**Insight:**
-QUIC reduces latency and improves performance but limits packet inspection due to encryption.
-
----
-
-### 4️⃣ TCP Handshake
-
-Standard 3-way handshake observed:
+Observed standard **3-way handshake**:
 
 * SYN → SYN-ACK → ACK
 
-**Insight:**
+📌 **Insight:**
 Ensures reliable communication before data transfer.
 
 ---
 
-### 5️⃣ TLS 1.3 Encryption
+### 4️⃣ TLS 1.3 Encryption
 
-Secure communication established using TLS:
+Secure sessions established over HTTPS:
 
 * Client Hello
 * Server Hello
 * Encrypted Application Data
 
-**Insight:**
-After handshake, payload becomes unreadable, protecting sensitive data.
+📌 **Insight:**
+After handshake, packet payload becomes unreadable.
+
+---
+
+### 5️⃣ QUIC Protocol (HTTP/3)
+
+Observed QUIC traffic:
+
+* Runs over UDP
+* Includes Initial + Protected Payload packets
+
+📌 **Insight:**
+QUIC improves performance but reduces deep packet visibility.
+
+---
+
+## 🔬 Deep Packet Inspection (Advanced)
+
+![Packet Detail](screenshots/wireshark-packet-detail.png)
+
+This view reveals:
+
+* Ethernet Frame
+* IP Header
+* TCP Segment
+* Raw Hexadecimal Data
+
+📌 **Insight:**
+Used in **digital forensics and advanced threat analysis**.
 
 ---
 
 ## 🔐 Security Analysis
 
-* 🔓 DVWA over HTTP exposes sensitive data in plaintext
-* 🔒 HTTPS traffic is encrypted using TLS 1.3
-* 🌐 DNS queries expose domain-level metadata
-* ⚡ QUIC enhances speed but reduces visibility
-* 👁️ Attackers rely on misconfigured HTTP services for exploitation
+* 🔓 HTTP traffic (DVWA) exposes sensitive data
+* 🔒 HTTPS traffic is encrypted (TLS 1.3)
+* 🌐 DNS leaks metadata (domains visited)
+* ⚡ QUIC enhances speed but limits inspection
+* 👁️ Attackers target insecure HTTP services
 
 ---
 
 ## ⚠️ Key Observations
 
-* Plain HTTP is highly insecure and easily exploitable
-* Modern applications heavily rely on encrypted protocols
-* Network analysis tools cannot inspect encrypted payloads without decryption
-* Metadata (IP, DNS, timing) still provides valuable intelligence
+* Plain HTTP is **highly vulnerable**
+* Modern systems rely heavily on encryption
+* Encrypted traffic hides payload but not metadata
+* Network analysis still provides valuable intelligence
 
 ---
 
@@ -151,6 +159,7 @@ After handshake, payload becomes unreadable, protecting sensitive data.
 
 Task-8-Wireshark/
 │── screenshots/
+│   ├── banner.png
 │   ├── wireshark-capture.png
 │   └── wireshark-packet-detail.png
 │
@@ -161,43 +170,49 @@ Task-8-Wireshark/
 
 ## 🎥 Demonstration Workflow
 
-1. Start XAMPP (Apache & MySQL)
+1. Start XAMPP (Apache + MySQL)
 2. Launch DVWA in browser
-3. Start Wireshark capture on active interface
-4. Perform actions (login, navigation, requests)
+3. Start Wireshark capture (`eth0`)
+4. Perform actions (login, browsing, requests)
 5. Apply filters:
 
-   * `http`
-   * `dns`
-   * `tcp`
-   * `tls`
-   * `quic`
-6. Analyze captured packets
-7. Save capture file
+   ```
+   http
+   dns
+   tcp
+   tls
+   quic
+   ```
+6. Analyze packets
+7. Save `.pcapng` file
 
 ---
 
 ## 🚀 Key Learning Outcomes
 
-* Hands-on experience with packet sniffing
-* Understanding of modern web protocols
-* Ability to analyze encrypted vs unencrypted traffic
-* Practical exposure to real-world cybersecurity scenarios
-* Insight into web application vulnerabilities (DVWA)
+* Hands-on packet sniffing and analysis
+* Understanding of modern network protocols
+* Ability to differentiate secure vs insecure traffic
+* Practical exposure to cybersecurity monitoring
+* Real-world attack surface understanding
 
 ---
 
 ## 🏁 Conclusion
 
-This project demonstrates how network traffic behaves in both **secure (HTTPS)** and **insecure (HTTP)** environments.
+This project demonstrates how network traffic behaves across both **secure and insecure environments**.
 
-By combining **DVWA, XAMPP, and Wireshark**, it provides a realistic simulation of how attackers and analysts observe network communication.
+By integrating **DVWA, XAMPP, and Wireshark**, it provides a realistic simulation of how:
 
-The findings emphasize the importance of:
+* Attackers intercept insecure traffic
+* Analysts monitor network behavior
+* Encryption protects sensitive data
 
-* Encrypted communication
-* Secure web configurations
-* Continuous network monitoring
+It reinforces the importance of:
+
+* Secure communication (HTTPS)
+* Network monitoring
+* Vulnerability awareness
 
 ---
 
